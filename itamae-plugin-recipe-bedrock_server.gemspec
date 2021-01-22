@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["kyohah"]
   spec.email         = ["3257272+kyohah@users.noreply.github.com"]
 
-  spec.summary       = "Write a short summary, because RubyGems requires one."
-  spec.description   = "Write a longer description or delete this line."
+  spec.summary       = "Itamae plugin to install Minecraft with init scripts."
+  spec.description   = "Itamae plugin to install Minecraft with init scripts."
   spec.homepage      = "https://github.com/kyohah/itamae-plugin-recipe-bedrock_server"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")

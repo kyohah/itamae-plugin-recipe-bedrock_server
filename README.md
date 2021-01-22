@@ -3,7 +3,7 @@
 Itamae plugin to install [Minecraft](https://www.minecraft.net/) with init scripts
 
 [![Gem Version](https://badge.fury.io/rb/itamae-plugin-recipe-bedrock_server.svg)](https://badge.fury.io/rb/itamae-plugin-recipe-bedrock_server)
-[![Build Status](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/workflows/test/badge.svg?branch=master)](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/actions?query=workflow%3Atest)
+![test](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/workflows/test/badge.svg)
 
 ## Supported
 * Ubuntu 18 or later [^1]

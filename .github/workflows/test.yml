@@ -1,0 +1,70 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+  schedule:
+    - cron: "0 10 * * 5"
+
+env:
+  CI: "true"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        ruby:
+          - 2.3
+        image:
+          - ubuntu:18
+          - ubuntu:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: eregon/use-ruby-action@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Cache vendor/bundle
+        uses: actions/cache@v1
+        id: cache_gem
+        with:
+          path: vendor/bundle
+          key: v1-gem-${{ runner.os }}-${{ matrix.ruby }}-${{ github.sha }}
+          restore-keys: |
+            v1-gem-${{ runner.os }}-${{ matrix.ruby }}-
+      - name: bundle update
+        run: |
+          set -xe
+          bundle config path vendor/bundle
+          bundle update --jobs $(nproc) --retry 3
+      - name: Start container
+        run: |
+          set -xe
+          docker run --name tmp-ubuntu $IMAGE bash -c "apt-get update && apt-get install -y systemd-sysv"
+          docker commit tmp-ubuntu ubuntu-with-systemd
+          docker run --privileged -d --name container-with-service ubuntu-with-systemd /sbin/init
+        env:
+          IMAGE: ${{ matrix.image }}
+
+      - name: Run Itamae
+        run: |
+          set -xe
+          bundle exec itamae docker --node-yaml=recipes/node.yml recipes/install.rb --container=container-with-service --tag itamae-plugin:latest
+      - name: Run Serverspec
+        run: |
+          set -xe
+          bundle exec rspec
+        env:
+          DOCKER_CONTAINER: container-with-service

@@ -1,0 +1,13 @@
+[Unit]
+Description=Minecraft Bedrock Server
+After=network.target
+
+[Service]
+EnvironmentFile=-<%= @environment_file %>
+Type=simple
+WorkingDirectory=<%= @app_dir %>/bedrock-server
+ExecStart=<%= @app_dir %>/bedrock-server/bedrock_server
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

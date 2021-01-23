@@ -1,13 +1,8 @@
-environment_content =
-  <<-EOS
-LD_LIBRARY_PATH=#{node[:bedrock_server][:ld_library_path]}
-  EOS
-
 environment_file = "/etc/default/bedrock_server"
 
-file environment_file do
+template environment_file do
   mode    "644"
-  content environment_content
+  variables(environment: node[:bedrock_server][:environment])
   notifies :restart, "service[bedrock_server]"
 end
 

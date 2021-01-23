@@ -1,6 +1,7 @@
 bedrock_server:
   app_dir: "/opt"
-  ld_library_path: "."
+  environment:
+    LD_LIBRARY_PATH: "."
   service_actions:
     - enable
     - start

@@ -1,6 +1,7 @@
 # Itamae::Plugin::Recipe::BedrockServer
 
-Itamae plugin to install [Minecraft](https://www.minecraft.net/) with init scripts
+Itamae plugin to install [Minecraft](https://www.minecraft.net/) with init scripts.
+You must read [Minecraft Server Download](https://www.minecraft.net/en-us/download/server/bedrock/)の[Minecraft End User License Agreement](https://account.mojang.com/terms) and [Privacy Policy](https://privacy.microsoft.com/ja-jp/privacystatement).
 
 [![Gem Version](https://badge.fury.io/rb/itamae-plugin-recipe-bedrock_server.svg)](https://badge.fury.io/rb/itamae-plugin-recipe-bedrock_server)
 ![test](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/workflows/test/badge.svg)
@@ -8,7 +9,7 @@ Itamae plugin to install [Minecraft](https://www.minecraft.net/) with init scrip
 ![](https://ruby-gem-downloads-badge.herokuapp.com/itamae-plugin-recipe-bedrock_server?type=total)
 
 ## Supported
-* Ubuntu 18 or later [^1]
+* Ubuntu 18 or later
 
 ## Installation
 
@@ -47,14 +48,16 @@ include_recipe "bedrock_server::service"
 
 ### Node
 
+[default node.yml](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/blob/main/recipes/node.yml)
+
 ```yml
 # node.yml
 bedrock_server:
-  # path to downloaded zip file (default: "/opt")
+  # path to bedrock server directory (default: "/opt")
   app_dir: "/opt"
 
-  # start environment (default: ".")
-  ld_library_path: "."
+  # bedrock-server download url (defailt is check from https://minecraft.net/en-us/download/server/bedrock/ and detect latest url)
+  url: "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.16.201.02.zip"
 
   # bedrock_server service actions when after install (default: enable, start)
   service_actions:
@@ -62,20 +65,53 @@ bedrock_server:
     - start
     # - disable
     # - stop
+
+  # server.properties configuration
+  configuration:
+    server-name: "Dedicated Server"
+    gamemode: "survival"
+    difficulty: "easy"
+    allow-cheats: false
+    max-players: 10
+    online-mode: true
+    white-list: false
+    server-port: 19132
+    server-portv6: 19133
+    view-distance: 32
+    tick-distance: 4
+    player-idle-timeout: 30
+    max-threads: 8
+    level-name: "Bedrock level"
+    level-seed: ""
+    level-type: "DEFAULT"
+    default-player-permission-level: "member"
+    texturepack-required: false
+    content-log-file-enabled: false
+    compression-threshold: 1
+    server-authoritative-movement: "server-auth"
+    player-movement-score-threshold: 20
+    player-movement-distance-threshold: 0.3
+    player-movement-duration-threshold-in-ms: 500
+    correct-player-movement: false
 ```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
+    $ docker run --name tmp-ubuntu $IMAGE bash -c "apt-get update && apt-get install -y systemd-sysv"
+    $ docker commit tmp-ubuntu ubuntu-with-systemd
+    $ docker run --privileged -d ubuntu-with-systemd /sbin/init
+    $ bundle exec itamae docker --node-yaml=recipes/node.yml recipes/install.rb --container=container-with-service
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/kyohah/itamae-plugin-recipe-bedrock_server.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kyohah/itamae-plugin-recipe-bedrock_server. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-[^1]: bedrock-server-1.16.201.02/bedrock_server_how_to.html
+## Code of Conduct
+
+Everyone interacting in the Itamae::Plugin::Recipe::BedrockServer project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/blob/master/CODE_OF_CONDUCT.md).

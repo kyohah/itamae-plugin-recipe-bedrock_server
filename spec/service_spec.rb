@@ -1,7 +1,9 @@
 describe file("/etc/default/bedrock_server") do
+  # TODO:
   let(:environment_file) do
     <<-EOS
-LD_LIBRARY_PATH=#{node[:bedrock_server][:ld_library_path]}
+
+LD_LIBRARY_PATH=#{node[:bedrock_server][:environment][:LD_LIBRARY_PATH]}
     EOS
   end
 

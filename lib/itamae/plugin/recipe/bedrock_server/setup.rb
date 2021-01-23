@@ -1,4 +1,6 @@
-# https" =>//minecraft.gamepedia.com/Server.properties
+hash = YAML.load_file("#{__dir__}/../../../../../recipes/node.yml")
+
+node.reverse_merge!(hash)
 
 node.validate! do
   {
@@ -33,7 +35,3 @@ node.validate! do
     }
   }
 end
-
-hash = YAML.load_file("#{__dir__}/../../../../../recipes/node.yml")
-
-node.reverse_merge!(hash)

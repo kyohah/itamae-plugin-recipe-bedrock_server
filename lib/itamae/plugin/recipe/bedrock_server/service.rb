@@ -15,7 +15,7 @@ template "/etc/systemd/system/bedrock_server.service" do
   mode "644"
   variables(
     environment_file: environment_file,
-    app_dir: "#{node[:bedrock_server][:app_dir]}",
+    app_dir: node[:bedrock_server][:app_dir],
   )
 
   notifies :restart, "service[bedrock_server]"

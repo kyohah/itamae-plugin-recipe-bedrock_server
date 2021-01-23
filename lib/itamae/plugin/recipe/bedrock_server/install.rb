@@ -10,3 +10,9 @@ http_request "bedrock-server.zip" do
 end
 
 execute "unzip -o bedrock-server.zip -d #{node[:bedrock_server][:app_dir]}/bedrock-server"
+
+template "#{node[:bedrock_server][:app_dir]}/bedrock-server/server.properties" do
+  variables(
+    configuration: node[:bedrock_server][:configuration]
+  )
+end

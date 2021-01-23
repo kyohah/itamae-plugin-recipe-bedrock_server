@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.2.0](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/tree/v0.2.0) (2021-01-23)
+
+[Full Changelog](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/compare/v0.1.0...v0.2.0)
+
 ## [v0.1.0](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/tree/v0.1.0) (2021-01-22)
 
 [Full Changelog](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/compare/116c84f7f2e3d15fc681a1fd3f9156d85949c8a3...v0.1.0)

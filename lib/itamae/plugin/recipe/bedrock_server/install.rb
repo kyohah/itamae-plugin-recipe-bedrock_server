@@ -1,9 +1,12 @@
-require 'open-uri'
-
 package "unzip"
 package "curl"
 
-bedrock_server_url = node[:bedrock_server][:url] || URI.open("https://minecraft.net/en-us/download/server/bedrock/").read.match(/https:\/\/minecraft\.azureedge\.net\/bin-linux\/bedrock-server-[.0-9]*\.zip/).to_s
+bedrock_server_url =
+  if node[:bedrock_server][:url]
+    node[:bedrock_server][:url]
+  else
+    run_command(%q(curl -fsSL https://minecraft.net/en-us/download/server/bedrock/ | grep -o 'https:\/\/minecraft\.azureedge\.net\/bin-linux\/bedrock-server-[0-9.]\+\.zip')).stdout.chomp
+  end
 
 http_request "bedrock-server.zip" do
   url bedrock_server_url

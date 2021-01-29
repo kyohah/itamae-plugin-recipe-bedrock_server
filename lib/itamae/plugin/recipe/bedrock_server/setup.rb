@@ -2,7 +2,7 @@ hash = {
   'bedrock_server' => {
     'app_dir' => '/opt',
     'environment' => { 'LD_LIBRARY_PATH' => '.' },
-    'service_actions' => %w[enable start],
+    'service_actions' => %i[enable start],
     'configuration' => {
       'server-name' => 'Dedicated Server',
       'gamemode' => 'survival',

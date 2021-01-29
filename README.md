@@ -1,7 +1,7 @@
 # Itamae::Plugin::Recipe::BedrockServer
 
 Itamae plugin to install [Minecraft](https://www.minecraft.net/) with init scripts.
-You must read [Minecraft Server Download](https://www.minecraft.net/en-us/download/server/bedrock/)の[Minecraft End User License Agreement](https://account.mojang.com/terms) and [Privacy Policy](https://privacy.microsoft.com/ja-jp/privacystatement).
+You must read [Minecraft Server Download](https://www.minecraft.net/en-us/download/server/bedrock/) in [Minecraft End User License Agreement](https://account.mojang.com/terms) and [Privacy Policy](https://privacy.microsoft.com/ja-jp/privacystatement).
 
 [![Gem Version](https://badge.fury.io/rb/itamae-plugin-recipe-bedrock_server.svg)](https://badge.fury.io/rb/itamae-plugin-recipe-bedrock_server)
 ![test](https://github.com/kyohah/itamae-plugin-recipe-bedrock_server/workflows/test/badge.svg)
@@ -98,9 +98,9 @@ bedrock_server:
 ## Development
 
 ```
-    $ docker run --name tmp-ubuntu $IMAGE bash -c "apt-get update && apt-get install -y systemd-sysv"
+    $ docker run --name tmp-ubuntu ubuntu:latest bash -c "apt-get update && apt-get install -y systemd-sysv"
     $ docker commit tmp-ubuntu ubuntu-with-systemd
-    $ docker run --privileged -d -rm --name container-with-service ubuntu-with-systemd /sbin/init
+    $ docker run --rm --privileged -d --name container-with-service -p 19132:19132 ubuntu-with-systemd /sbin/init
     $ bundle exec itamae docker --node-yaml=recipes/node.yml recipes/install.rb --container=container-with-service
 ```
 

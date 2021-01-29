@@ -100,7 +100,7 @@ bedrock_server:
 ```
     $ docker run --name tmp-ubuntu $IMAGE bash -c "apt-get update && apt-get install -y systemd-sysv"
     $ docker commit tmp-ubuntu ubuntu-with-systemd
-    $ docker run --privileged -d ubuntu-with-systemd /sbin/init
+    $ docker run --privileged -d -rm --name container-with-service ubuntu-with-systemd /sbin/init
     $ bundle exec itamae docker --node-yaml=recipes/node.yml recipes/install.rb --container=container-with-service
 ```
 

@@ -6,6 +6,11 @@ template environment_file do
   notifies :restart, "service[bedrock_server]"
 end
 
+template "/etc/systemd/system/bedrock_server.socket" do
+  mode "644"
+  notifies :restart, "service[bedrock_server]"
+end
+
 template "/etc/systemd/system/bedrock_server.service" do
   mode "644"
   variables(

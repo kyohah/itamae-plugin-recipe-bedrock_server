@@ -8,6 +8,10 @@ Type=simple
 WorkingDirectory=<%= @app_dir %>/bedrock-server
 ExecStart=<%= @app_dir %>/bedrock-server/bedrock_server
 Restart=on-failure
+Sockets=bedrock_server.socket
+StandardInput=socket
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target

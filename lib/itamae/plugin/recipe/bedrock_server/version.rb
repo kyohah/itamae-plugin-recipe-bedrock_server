@@ -4,7 +4,7 @@ module Itamae
   module Plugin
     module Recipe
       module BedrockServer
-        VERSION = "0.3.2"
+        VERSION = "0.3.3"
       end
     end
   end
